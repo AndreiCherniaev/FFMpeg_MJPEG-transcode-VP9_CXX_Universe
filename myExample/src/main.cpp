@@ -63,8 +63,8 @@ int main(int argc, char *argv[])
     //        fprintf(stderr, "Usage: %s <output file> <codec name>\n", argv[0]);
     //        exit(0);
     //    }
-    filename = "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_ffmpeg/build-host/f25_1000.raw"; //argv[1];
-    file_out_name = "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_ffmpeg/build-host/out4.mkv";
+    filename = "../2.3D printing video_2023.08.23.yuvj422p"; //argv[1];
+    file_out_name = "out4.mkv";
     codec_name = "libopenh264"; //argv[2];
 
     /* find the mpeg1video encoder */
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    f = fopen(filename, "wb");
+    f = fopen(filename, "r");
     if (!f) {
         fprintf(stderr, "Could not open %s\n", filename);
         exit(1);

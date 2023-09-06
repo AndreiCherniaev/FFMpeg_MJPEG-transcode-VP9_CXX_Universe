@@ -1,11 +1,14 @@
 #!/bin/bash
 
 #cd Cpp_FFMpeg_Universe/
-export MyBaseDir=${PWD}
-mkdir -p FFMpeg_themself
+if [ -z "${MyBaseDir}" ]
+then
+      echo "err \$MyBaseDir is empty"
+else
+cd "${MyBaseDir}/FFMpeg_themself"
 rm -Rf ${MyBaseDir}/FFMpeg_themself/ffmpeg_build ${MyBaseDir}/FFMpeg_themself/bin && mkdir ${MyBaseDir}/FFMpeg_themself/ffmpeg_build ${MyBaseDir}/FFMpeg_themself/bin
-git clone https://git.ffmpeg.org/ffmpeg.git FFMpeg_themself/ffmpeg
-cd ${MyBaseDir}/FFMpeg_themself/ffmpeg_build
+git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
+cd "${MyBaseDir}/FFMpeg_themself/ffmpeg_build"
 PATH="${MyBaseDir}/FFMpeg_themself/bin:$PATH" PKG_CONFIG_PATH="${MyBaseDir}/FFMpeg_themself/ffmpeg_build/lib/pkgconfig" ${MyBaseDir}/FFMpeg_themself/ffmpeg/configure \
   --prefix="${MyBaseDir}/FFMpeg_themself/ffmpeg_build" \
   --pkg-config-flags="--static" \
@@ -20,10 +23,12 @@ PATH="${MyBaseDir}/FFMpeg_themself/bin:$PATH" PKG_CONFIG_PATH="${MyBaseDir}/FFMp
   --disable-static \
   --disable-ffplay \
   --disable-ffprobe \
+  --disable-ffmpeg \
   --disable-swresample \
   --disable-decoders \
   --disable-doc \
   --disable-encoders \
-  --enable-encoder=mjpeg
+  --enable-encoder=libopenh264
 PATH="${MyBaseDir}/FFMpeg_themself/bin:$PATH" make -j16
 make install
+fi
