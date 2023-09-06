@@ -1,3 +1,5 @@
+//hello-world https://habr.com/ru/companies/edison/articles/495614/
+//Bundle FFmpeg with Qt6 application using CMake https://forum.qt.io/topic/141950/bundle-ffmpeg-with-qt6-application-using-cmake
 #include <QCoreApplication>
 #include <QtLogging>
 
