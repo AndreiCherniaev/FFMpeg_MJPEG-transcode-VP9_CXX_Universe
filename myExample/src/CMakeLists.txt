@@ -24,7 +24,7 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBAV REQUIRED IMPORTED_TARGET
     libavcodec
     libavutil
-    #libavformat
+    libavformat
 )
 
 qt_add_executable(${PROJECT_NAME}
