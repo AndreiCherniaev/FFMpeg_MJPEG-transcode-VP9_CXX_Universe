@@ -24,10 +24,12 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(LIBAV REQUIRED IMPORTED_TARGET
     libavcodec
     libavutil
+    #libavformat
 )
 
 qt_add_executable(${PROJECT_NAME}
     main.cpp
+    ffmpegInclude.h
 )
 
 target_include_directories( ${PROJECT_NAME} PUBLIC

@@ -2,18 +2,7 @@
 //Bundle FFmpeg with Qt6 application using CMake https://forum.qt.io/topic/141950/bundle-ffmpeg-with-qt6-application-using-cmake
 #include <QCoreApplication>
 #include <QtLogging>
-
-// if
-// error: libavcodec/avcodec.h: No such file or directory
-// then
-// sudo apt-get install libavcodec-dev
-extern "C"
-{
-#include "libavcodec/avcodec.h"
-
-#include <libavutil/opt.h>
-#include <libavutil/imgutils.h>
-}
+#include "ffmpegInclude.h"
 
 static void encode(AVCodecContext *enc_ctx, AVFrame *frame, AVPacket *pkt,
                    FILE *outfile)
