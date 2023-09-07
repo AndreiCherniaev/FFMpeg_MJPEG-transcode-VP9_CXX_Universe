@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# export MyBaseDir=/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/
 #cd Cpp_FFMpeg_Universe/
 if [ -z "${MyBaseDir}" ]
 then
@@ -20,11 +21,11 @@ PATH="${MyBaseDir}/FFMpeg_themself/bin:$PATH" PKG_CONFIG_PATH="${MyBaseDir}/FFMp
   --enable-gpl \
   --enable-libopenh264 \
   --enable-shared \
-  --disable-static \
+  #--disable-static \
   --disable-ffplay \
   --disable-ffprobe \
   --disable-ffmpeg \
-  --disable-swresample \
+  #--disable-swresample \
   --disable-decoders \
   --disable-doc \
   --disable-encoders \
