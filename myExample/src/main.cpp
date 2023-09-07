@@ -11,24 +11,26 @@ static void encode(AVCodecContext *enc_ctx, AVFrame *frame, AVPacket *pkt,
 
     /* send the frame to the encoder */
     if (frame)
-        printf("Send frame %3" PRId64"\n", frame->pts);
+        qDebug() << "Send frame" << frame->pts;
 
     ret = avcodec_send_frame(enc_ctx, frame);
     if (ret < 0) {
-        fprintf(stderr, "Error sending a frame for encoding\n");
+        qDebug("Error sending a frame for encoding\n");
         exit(1);
     }
 
     while (ret >= 0) {
         ret = avcodec_receive_packet(enc_ctx, pkt);
+//        WelsLog (& (pEncCtx->sLogCtx), WELS_LOG_WARNING, "[Rc] iDid = %d,iContinualSkipFrames(%d) is large",
+//                iCurDid, pWelsSvcRc->iContinualSkipFrames);
         if (ret == AVERROR(EAGAIN) || ret == AVERROR_EOF)
             return;
         else if (ret < 0) {
-            fprintf(stderr, "Error during encoding\n");
+            qDebug("Error during encoding\n");
             exit(1);
         }
 
-        printf("Write packet %3" PRId64" (size=%5d)\n", pkt->pts, pkt->size);
+        qDebug() << "Write packet" << pkt->pts << "(size=%5d)" << pkt->size;
         fwrite(pkt->data, 1, pkt->size, outfile);
         av_packet_unref(pkt);
     }
@@ -39,8 +41,8 @@ const char *file_out_name;
 const AVCodec *codec;
 AVCodecContext *c= NULL;
 int i, ret, x, y;
-//FILE *f;
-//FILE *f_out;
+FILE *fin;
+FILE *f_out;
 AVFrame *frame;
 AVPacket *pkt;
 uint8_t endcode[] = { 0, 0, 1, 0xb7 };
@@ -54,7 +56,7 @@ int main(int argc, char *argv[])
     //        exit(0);
     //    }
     filename = "../2.3D printing video_2023.08.23.yuvj422p"; //argv[1];
-    file_out_name = "out4.mkv";
+    file_out_name = "out4_.mkv";
     codec_name = "libopenh264"; //argv[2];
 
     /* find the mpeg1video encoder */
@@ -70,15 +72,15 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    AVFormatContext *input_format_context = NULL, *output_format_context = NULL;
-    if ((ret = avformat_open_input(&input_format_context, filename, NULL, NULL)) < 0) {
-        fprintf(stderr, "Could not open input file '%s'", filename);
-        exit(1);
-    }
-    if ((ret = avformat_find_stream_info(input_format_context, NULL)) < 0) {
-        fprintf(stderr, "Failed to retrieve input stream information");
-        exit(1);
-    }
+//    AVFormatContext *input_format_context = NULL, *output_format_context = NULL;
+//    if ((ret = avformat_open_input(&input_format_context, filename, NULL, NULL)) < 0) {
+//        fprintf(stderr, "Could not open input file '%s'", filename);
+//        exit(1);
+//    }
+//    if ((ret = avformat_find_stream_info(input_format_context, NULL)) < 0) {
+//        fprintf(stderr, "Failed to retrieve input stream information");
+//        exit(1);
+//    }
 
     pkt = av_packet_alloc();
     if (!pkt)
@@ -88,8 +90,9 @@ int main(int argc, char *argv[])
     c->bit_rate = 4000000;
     c->rc_max_rate = 7500000;
     /* resolution must be a multiple of two */
-    c->width = 640;
-    c->height = 480;
+    //encoder_ext.cpp: int32_t iMinCrFrameSize = (pParam->iVideoWidth * pParam->iVideoHeight * 3) >> 2; //MinCr = 2;
+    c->width = 1920*2;
+    c->height = 1080*2;
     /* frames per second */
     c->time_base = (AVRational){1, 1000};
     c->framerate = (AVRational){25, 1};
@@ -111,13 +114,27 @@ int main(int argc, char *argv[])
     c->refs = 3;
     c->pix_fmt = AV_PIX_FMT_YUV420P;
 
-    if (codec->id == AV_CODEC_ID_H264)
-        av_opt_set(c->priv_data, "preset", "slow", 0);
-
+    if (codec->id == AV_CODEC_ID_H264){
+        //For libopenh264 only
+        av_opt_set(c->priv_data, "profile", "high", 0);
+        av_opt_set(c->priv_data, "allow_skip_frames", "1", 0);
+    }
     /* open it */
     ret = avcodec_open2(c, codec, NULL);
     if (ret < 0) {
         fprintf(stderr, "Could not open codec: %s\n", "av_err2str(ret)"); //DungeonLords
+        exit(1);
+    }
+
+    fin = fopen(filename, "r");
+    if (!fin) {
+        fprintf(stderr, "Could not open %s\n", filename);
+        exit(1);
+    }
+
+    f_out = fopen(file_out_name, "wb");
+    if(!f_out) {
+        fprintf(stderr, "Could not open f_out %s\n", filename);
         exit(1);
     }
 
@@ -129,7 +146,7 @@ int main(int argc, char *argv[])
     frame->format = c->pix_fmt;
     frame->width  = c->width;
     frame->height = c->height;
-
+    quint32 size   = frame->width * frame->height;
     ret = av_frame_get_buffer(frame, 0);
     if (ret < 0) {
         fprintf(stderr, "Could not allocate the video frame data\n");
@@ -159,22 +176,9 @@ int main(int argc, char *argv[])
            filling the frame. FFmpeg does not care what you put in the
            frame.
          */
-        /* Y */
-        for (y = 0; y < c->height; y++) {
-            for (x = 0; x < c->width; x++) {
-                frame->data[0][y * frame->linesize[0] + x] = x + y + i * 3;
-            }
-        }
-
-        /* Cb and Cr */
-        for (y = 0; y < c->height/2; y++) {
-            for (x = 0; x < c->width/2; x++) {
-                frame->data[1][y * frame->linesize[1] + x] = 128 + y + i * 2;
-                frame->data[2][y * frame->linesize[2] + x] = 64 + x + i * 5;
-            }
-        }
-
-        frame->pts = i;
+        size_t err;
+        if((err = fread((uint8_t*)(frame->data[0]), size, 1, fin)) <= 0)
+            break;
 
         /* encode the image */
         encode(c, frame, pkt, f_out);
@@ -182,7 +186,8 @@ int main(int argc, char *argv[])
 
     /* flush the encoder */
     encode(c, NULL, pkt, f_out);
-
+    fclose(fin);
+    fclose(f_out);
 
     avcodec_free_context(&c);
     av_frame_free(&frame);
