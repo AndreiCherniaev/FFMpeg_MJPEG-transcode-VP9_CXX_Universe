@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003 Fabrice Bellard
+ * Copyright (c) 2003 Fabrice Bellard, 2023 Andrei Cherniaev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -316,7 +316,7 @@ static AVFrame *get_audio_frame(OutputStream *ost)
         return NULL;
 
     for (j = 0; j <frame->nb_samples; j++) {
-        v = (int)(666 * 10000);
+        v = (int)(sin(ost->t) * 10000);
         for (i = 0; i < ost->enc->ch_layout.nb_channels; i++)
             *q++ = v;
         ost->t     += ost->tincr;

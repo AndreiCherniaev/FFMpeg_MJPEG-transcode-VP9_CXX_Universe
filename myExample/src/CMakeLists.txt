@@ -2,6 +2,12 @@ cmake_minimum_required(VERSION 3.24)
 
 project(myExample LANGUAGES C)
 
+set(POW_LIBS "")
+include(CheckLibraryExists)
+check_library_exists(m pow "" LIBM)
+if(LIBM)
+    list(APPEND POW_LIBS "m")
+endif()
 
 # With Environment Variables
 #cmake_path(SET pkgconfig_path "${CMAKE_CURRENT_LIST_DIR}/../../FFMpeg_themself/ffmpeg_build/lib/pkgconfig/" NORMALIZE)
@@ -32,3 +38,4 @@ target_include_directories( ${PROJECT_NAME} PUBLIC
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC PkgConfig::LIBAV)
+target_link_libraries(${PROJECT_NAME} PUBLIC ${POW_LIBS})
