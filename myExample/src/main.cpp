@@ -146,7 +146,7 @@ int main(int argc, char *argv[])
     frame->format = c->pix_fmt;
     frame->width  = c->width;
     frame->height = c->height;
-    quint32 size   = frame->width * frame->height;
+    quint32 size= frame->width * frame->height;
     ret = av_frame_get_buffer(frame, 0);
     if (ret < 0) {
         fprintf(stderr, "Could not allocate the video frame data\n");
