@@ -68,6 +68,8 @@ typedef struct OutputStream {
     struct SwrContext *swr_ctx;
 } OutputStream;
 
+FILE *fin;
+
 static void log_packet(const AVFormatContext *fmt_ctx, const AVPacket *pkt)
 {
     AVRational *time_base = &fmt_ctx->streams[pkt->stream_index]->time_base;
@@ -369,6 +371,7 @@ int main()
     int i;
 
     filename = "vname.h264";
+    const char * const fin_name= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
 
     /* allocate the output media context */
     avformat_alloc_output_context2(&oc, NULL, NULL, filename);
@@ -406,6 +409,12 @@ int main()
         }
     }
 
+    fin = fopen(fin_name, "r");
+    if (!fin) {
+        fprintf(stderr, "Could not open %s\n", fin_name);
+        exit(1);
+    }
+
     /* Write the stream header, if any. */
     ret = avformat_write_header(oc, &opt);
     if (ret < 0) {
@@ -431,6 +440,7 @@ int main()
 
     /* free the stream */
     avformat_free_context(oc);
+    fclose(fin);
 
     return 0;
 }
