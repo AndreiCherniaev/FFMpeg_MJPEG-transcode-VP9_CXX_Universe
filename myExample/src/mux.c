@@ -540,7 +540,7 @@ int main(int argc, char **argv)
     AVFormatContext *oc;
     const AVCodec *audio_codec, *video_codec;
     int ret;
-    int have_video = 0, have_audio = 0;
+    int have_video = 0;
     int encode_video = 0, encode_audio = 0;
     AVDictionary *opt = NULL;
     int i;
@@ -583,19 +583,11 @@ int main(int argc, char **argv)
         have_video = 1;
         encode_video = 1;
     }
-    if (fmt->audio_codec != AV_CODEC_ID_NONE) {
-        add_stream(&audio_st, oc, &audio_codec, fmt->audio_codec);
-        have_audio = 1;
-        encode_audio = 1;
-    }
 
     /* Now that all the parameters are set, we can open the audio and
      * video codecs and allocate the necessary encode buffers. */
     if (have_video)
         open_video(oc, video_codec, &video_st, opt);
-
-    if (have_audio)
-        open_audio(oc, audio_codec, &audio_st, opt);
 
     av_dump_format(oc, 0, filename, 1);
 
@@ -633,8 +625,6 @@ int main(int argc, char **argv)
     /* Close each codec. */
     if (have_video)
         close_stream(oc, &video_st);
-    if (have_audio)
-        close_stream(oc, &audio_st);
 
     if (!(fmt->flags & AVFMT_NOFILE))
         /* Close the output file. */
