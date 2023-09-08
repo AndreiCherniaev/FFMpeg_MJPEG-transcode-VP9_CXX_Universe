@@ -545,6 +545,9 @@ int main(int argc, char **argv)
     AVDictionary *opt = NULL;
     int i;
 
+    char *argv_video_do[2+1] = { (char*)"progname", (char*)"vname.mp4", 0 };
+    argv= argv_video_do;
+    argc= 2;
     if (argc < 2) {
         printf("usage: %s output_file\n"
                "API example program to output a media file with libavformat.\n"
