@@ -172,6 +172,12 @@ static void add_stream(OutputStream *ost, AVFormatContext *oc,
 
         c->gop_size      = 12; /* emit one intra frame every twelve frames at most */
         c->pix_fmt       = AV_PIX_FMT_YUV420P;
+        if (c->codec_id == AV_CODEC_ID_H264){
+            //For libopenh264 only
+            av_opt_set(c->priv_data, "profile", "high", 0);
+            av_opt_set(c->priv_data, "allow_skip_frames", "1", 0);
+            av_opt_set(c->priv_data, "maxrate", "7500000", 0);
+        }
         if (c->codec_id == AV_CODEC_ID_MPEG2VIDEO) {
             /* just for testing, we also add B-frames */
             c->max_b_frames = 2;
