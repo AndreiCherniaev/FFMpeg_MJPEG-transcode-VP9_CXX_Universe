@@ -368,7 +368,7 @@ int main()
     AVDictionary *opt = NULL;
     int i;
 
-    filename = "vname.mp4";
+    filename = "vname.h264";
 
     /* allocate the output media context */
     avformat_alloc_output_context2(&oc, NULL, NULL, filename);
