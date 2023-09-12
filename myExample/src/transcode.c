@@ -155,7 +155,7 @@ static int open_output_file(const char *filename)
         if (dec_ctx->codec_type == AVMEDIA_TYPE_VIDEO
                 || dec_ctx->codec_type == AVMEDIA_TYPE_AUDIO) {
             /* in this example, we choose transcoding to same codec */
-            encoder = avcodec_find_encoder(dec_ctx->codec_id);
+            encoder = avcodec_find_encoder(AV_CODEC_ID_VP9);
             if (!encoder) {
                 av_log(NULL, AV_LOG_FATAL, "Necessary encoder not found\n");
                 return AVERROR_INVALIDDATA;
@@ -527,14 +527,17 @@ int main(int argc, char **argv)
     unsigned int stream_index;
     unsigned int i;
 
-    if (argc != 3) {
-        av_log(NULL, AV_LOG_ERROR, "Usage: %s <input file> <output file>\n", argv[0]);
-        return 1;
-    }
+//    if (argc != 3) {
+//        av_log(NULL, AV_LOG_ERROR, "Usage: %s <input file> <output file>\n", argv[0]);
+//        return 1;
+//    }
+    const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
+    //const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/w.webm";
+    const char * const out_filename = "vname.webm";
 
-    if ((ret = open_input_file(argv[1])) < 0)
+    if ((ret = open_input_file(in_filename)) < 0)
         goto end;
-    if ((ret = open_output_file(argv[2])) < 0)
+    if ((ret = open_output_file(out_filename)) < 0)
         goto end;
     if ((ret = init_filters()) < 0)
         goto end;

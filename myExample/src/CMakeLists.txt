@@ -36,8 +36,8 @@ pkg_check_modules(LIBAV REQUIRED IMPORTED_TARGET
 
 add_executable(${PROJECT_NAME}
     # mux.c
-    remux.c
-    # transcode.c
+    # remux.c
+    transcode.c
 )
 
 target_include_directories( ${PROJECT_NAME} PUBLIC
