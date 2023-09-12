@@ -61,8 +61,8 @@ int main(int argc, char **argv)
 
 //    const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
 //    const char * const out_filename = "vname.mov";
-    //const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
-    const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/w.webm";
+    const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
+    //const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/w.webm";
     const char * const out_filename = "vname.webm";
 
     pkt = av_packet_alloc();
@@ -124,6 +124,21 @@ int main(int argc, char **argv)
         goto end;
     }
     out_stream->codecpar->codec_tag = 0;
+    //Format filling>>>
+    //Stream #0:0: Video: vp9 (libvpx-vp9), 1 reference frame, yuv422p(center), 1920x1080, q=-1--1, 2000 kb/s, 25 fps, 1k tbn, 25 tbc
+    out_stream->codecpar->codec_id= AV_CODEC_ID_VP9;
+    out_stream->codecpar->color_range= AVCOL_RANGE_MPEG;
+    out_stream->codecpar->color_space= AVCOL_SPC_UNSPECIFIED;
+    out_stream->codecpar->codec_tag = 0;
+    out_stream->codecpar->codec_type= AVMEDIA_TYPE_VIDEO;
+    out_stream->codecpar->format= AV_PIX_FMT_YUV422P;
+    //out_stream->codecpar->framerate= ;
+    out_stream->codecpar->profile= 1;
+    out_stream->codecpar->bit_rate= 2000000; //2000 kb/s
+    out_stream->codecpar->width = 1920;
+    out_stream->codecpar->height = 1080;
+    //out_stream->codecpar->chroma_location= AVCHROMA_LOC_CENTER;
+    //Format filling<<<
     av_dump_format(ofmt_ctx, 0, out_filename, 1);
 
     if (!(ofmt->flags & AVFMT_NOFILE)) {
