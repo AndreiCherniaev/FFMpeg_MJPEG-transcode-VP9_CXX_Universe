@@ -181,7 +181,7 @@ static int open_output_file(const char *filename)
                 enc_ctx->pix_fmt = dec_ctx->pix_fmt;
             /* video time_base can be set to whatever is handy and supported by encoder */
             enc_ctx->time_base = av_inv_q(dec_ctx->framerate);
-            enc_ctx->bit_rate= 2000000;
+            enc_ctx->bit_rate= 1900; //means 13.4kb/s
         }
 
         if (ofmt_ctx->oformat->flags & AVFMT_GLOBALHEADER)
@@ -471,7 +471,7 @@ int main(int argc, char **argv)
 //    }
     const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
     //const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/w.webm";
-    const char * const out_filename = "vname.webm";
+    const char * const out_filename = "vname1900.webm";
 
     if ((ret = open_input_file(in_filename)) < 0)
         goto end;
