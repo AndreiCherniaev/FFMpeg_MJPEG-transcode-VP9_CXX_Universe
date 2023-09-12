@@ -74,6 +74,13 @@ static int open_input_file(const char *filename)
         return ret;
     }
 
+    int stream_mapping_size = ifmt_ctx->nb_streams; //should be 1
+    if(stream_mapping_size!= 1){
+        fprintf(stderr, "err Too much streams in inFile\n");
+        ret = AVERROR_UNKNOWN;
+        return AVERROR(ret);
+    }
+
     stream_ctx = av_calloc(ifmt_ctx->nb_streams, sizeof(*stream_ctx));
     if (!stream_ctx)
         return AVERROR(ENOMEM);
