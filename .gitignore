@@ -63,3 +63,4 @@ compile_commands.json
 *_qmlcache.qrc
 FFMpeg_themself/ffmpeg/
 *.yuvj422p
+*.webm
