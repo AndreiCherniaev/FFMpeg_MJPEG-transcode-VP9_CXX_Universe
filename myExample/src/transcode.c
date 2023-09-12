@@ -296,62 +296,7 @@ static int init_filter(FilteringContext* fctx, AVCodecContext *dec_ctx,
             av_log(NULL, AV_LOG_ERROR, "Cannot set output pixel format\n");
             goto end;
         }
-    } else if (dec_ctx->codec_type == AVMEDIA_TYPE_AUDIO) {
-        char buf[64];
-        buffersrc = avfilter_get_by_name("abuffer");
-        buffersink = avfilter_get_by_name("abuffersink");
-        if (!buffersrc || !buffersink) {
-            av_log(NULL, AV_LOG_ERROR, "filtering source or sink element not found\n");
-            ret = AVERROR_UNKNOWN;
-            goto end;
-        }
-
-        if (dec_ctx->ch_layout.order == AV_CHANNEL_ORDER_UNSPEC)
-            av_channel_layout_default(&dec_ctx->ch_layout, dec_ctx->ch_layout.nb_channels);
-        av_channel_layout_describe(&dec_ctx->ch_layout, buf, sizeof(buf));
-        snprintf(args, sizeof(args),
-                "time_base=%d/%d:sample_rate=%d:sample_fmt=%s:channel_layout=%s",
-                dec_ctx->pkt_timebase.num, dec_ctx->pkt_timebase.den, dec_ctx->sample_rate,
-                av_get_sample_fmt_name(dec_ctx->sample_fmt),
-                buf);
-        ret = avfilter_graph_create_filter(&buffersrc_ctx, buffersrc, "in",
-                args, NULL, filter_graph);
-        if (ret < 0) {
-            av_log(NULL, AV_LOG_ERROR, "Cannot create audio buffer source\n");
-            goto end;
-        }
-
-        ret = avfilter_graph_create_filter(&buffersink_ctx, buffersink, "out",
-                NULL, NULL, filter_graph);
-        if (ret < 0) {
-            av_log(NULL, AV_LOG_ERROR, "Cannot create audio buffer sink\n");
-            goto end;
-        }
-
-        ret = av_opt_set_bin(buffersink_ctx, "sample_fmts",
-                (uint8_t*)&enc_ctx->sample_fmt, sizeof(enc_ctx->sample_fmt),
-                AV_OPT_SEARCH_CHILDREN);
-        if (ret < 0) {
-            av_log(NULL, AV_LOG_ERROR, "Cannot set output sample format\n");
-            goto end;
-        }
-
-        av_channel_layout_describe(&enc_ctx->ch_layout, buf, sizeof(buf));
-        ret = av_opt_set(buffersink_ctx, "ch_layouts",
-                         buf, AV_OPT_SEARCH_CHILDREN);
-        if (ret < 0) {
-            av_log(NULL, AV_LOG_ERROR, "Cannot set output channel layout\n");
-            goto end;
-        }
-
-        ret = av_opt_set_bin(buffersink_ctx, "sample_rates",
-                (uint8_t*)&enc_ctx->sample_rate, sizeof(enc_ctx->sample_rate),
-                AV_OPT_SEARCH_CHILDREN);
-        if (ret < 0) {
-            av_log(NULL, AV_LOG_ERROR, "Cannot set output sample rate\n");
-            goto end;
-        }
-    } else {
+    }else {
         ret = AVERROR_UNKNOWN;
         goto end;
     }
