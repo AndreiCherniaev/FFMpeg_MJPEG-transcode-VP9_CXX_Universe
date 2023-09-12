@@ -61,8 +61,11 @@ int main(int argc, char **argv)
 //        return 1;
 //    }
 
-    const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
-    const char * const out_filename = "vname.mov";
+//    const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
+//    const char * const out_filename = "vname.mov";
+    //const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
+    const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/w.webm";
+    const char * const out_filename = "vname.webm";
 
     pkt = av_packet_alloc();
     if (!pkt) {
