@@ -181,14 +181,6 @@ static int open_output_file(const char *filename)
                 enc_ctx->pix_fmt = dec_ctx->pix_fmt;
             /* video time_base can be set to whatever is handy and supported by encoder */
             enc_ctx->time_base = av_inv_q(dec_ctx->framerate);
-        } else {
-            enc_ctx->sample_rate = dec_ctx->sample_rate;
-            ret = av_channel_layout_copy(&enc_ctx->ch_layout, &dec_ctx->ch_layout);
-            if (ret < 0)
-                return ret;
-            /* take first format from list of supported formats */
-            enc_ctx->sample_fmt = encoder->sample_fmts[0];
-            enc_ctx->time_base = (AVRational){1, enc_ctx->sample_rate};
         }
 
         if (ofmt_ctx->oformat->flags & AVFMT_GLOBALHEADER)
