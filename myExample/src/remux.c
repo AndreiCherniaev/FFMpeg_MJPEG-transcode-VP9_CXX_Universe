@@ -48,7 +48,7 @@ int main(int argc, char **argv)
     const AVOutputFormat *ofmt = NULL;
     AVFormatContext *ifmt_ctx = NULL, *ofmt_ctx = NULL;
     AVPacket *pkt = NULL;
-    int ret, i;
+    int ret;
     int stream_index = 0;
 
 //    if (argc < 3) {
@@ -107,25 +107,23 @@ int main(int argc, char **argv)
 
     ofmt = ofmt_ctx->oformat;
 
-    for (i = 0; i < ifmt_ctx->nb_streams; i++) {
-        AVStream *out_stream;
-        AVStream *in_stream = ifmt_ctx->streams[i];
-        AVCodecParameters *in_codecpar = in_stream->codecpar;
+    AVStream *out_stream;
+    AVStream *in_stream = ifmt_ctx->streams[0];
+    AVCodecParameters *in_codecpar = in_stream->codecpar;
 
-        out_stream = avformat_new_stream(ofmt_ctx, NULL);
-        if (!out_stream) {
-            fprintf(stderr, "Failed allocating output stream\n");
-            ret = AVERROR_UNKNOWN;
-            goto end;
-        }
-
-        ret = avcodec_parameters_copy(out_stream->codecpar, in_codecpar);
-        if (ret < 0) {
-            fprintf(stderr, "Failed to copy codec parameters\n");
-            goto end;
-        }
-        out_stream->codecpar->codec_tag = 0;
+    out_stream = avformat_new_stream(ofmt_ctx, NULL);
+    if (!out_stream) {
+        fprintf(stderr, "Failed allocating output stream\n");
+        ret = AVERROR_UNKNOWN;
+        goto end;
     }
+
+    ret = avcodec_parameters_copy(out_stream->codecpar, in_codecpar);
+    if (ret < 0) {
+        fprintf(stderr, "Failed to copy codec parameters\n");
+        goto end;
+    }
+    out_stream->codecpar->codec_tag = 0;
     av_dump_format(ofmt_ctx, 0, out_filename, 1);
 
     if (!(ofmt->flags & AVFMT_NOFILE)) {
