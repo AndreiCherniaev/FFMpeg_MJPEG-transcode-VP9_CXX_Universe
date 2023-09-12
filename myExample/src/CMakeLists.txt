@@ -31,11 +31,13 @@ pkg_check_modules(LIBAV REQUIRED IMPORTED_TARGET
     libavformat
     libswresample
     libswscale
+    libavfilter #for transcode only
 )
 
 add_executable(${PROJECT_NAME}
     # mux.c
     remux.c
+    # transcode.c
 )
 
 target_include_directories( ${PROJECT_NAME} PUBLIC
