@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 3.24)
 
-project(myExample LANGUAGES C)
+project(myExample LANGUAGES CXX C)
+
+set(CMAKE_AUTOMOC ON)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(POW_LIBS "")
 include(CheckLibraryExists)
