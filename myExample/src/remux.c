@@ -50,7 +50,6 @@ int main(int argc, char **argv)
     AVPacket *pkt = NULL;
     int ret, i;
     int stream_index = 0;
-    int *stream_mapping = NULL;
 
 //    if (argc < 3) {
 //        printf("usage: %s input output\n"
@@ -105,11 +104,6 @@ int main(int argc, char **argv)
         ret = AVERROR_UNKNOWN;
         goto end;
     }
-    stream_mapping = av_calloc(stream_mapping_size, sizeof(*stream_mapping));
-    if (!stream_mapping) {
-        ret = AVERROR(ENOMEM);
-        goto end;
-    }
 
     ofmt = ofmt_ctx->oformat;
 
@@ -117,15 +111,6 @@ int main(int argc, char **argv)
         AVStream *out_stream;
         AVStream *in_stream = ifmt_ctx->streams[i];
         AVCodecParameters *in_codecpar = in_stream->codecpar;
-
-        if (in_codecpar->codec_type != AVMEDIA_TYPE_AUDIO &&
-            in_codecpar->codec_type != AVMEDIA_TYPE_VIDEO &&
-            in_codecpar->codec_type != AVMEDIA_TYPE_SUBTITLE) {
-            stream_mapping[i] = -1;
-            continue;
-        }
-
-        stream_mapping[i] = stream_index++;
 
         out_stream = avformat_new_stream(ofmt_ctx, NULL);
         if (!out_stream) {
@@ -165,13 +150,6 @@ int main(int argc, char **argv)
             break;
 
         in_stream  = ifmt_ctx->streams[pkt->stream_index];
-        if (pkt->stream_index >= stream_mapping_size ||
-            stream_mapping[pkt->stream_index] < 0) {
-            av_packet_unref(pkt);
-            continue;
-        }
-
-        pkt->stream_index = stream_mapping[pkt->stream_index];
         out_stream = ofmt_ctx->streams[pkt->stream_index];
         log_packet(ifmt_ctx, pkt, "in");
 
@@ -197,11 +175,9 @@ end:
     avformat_close_input(&ifmt_ctx);
 
     /* close output */
-    if (ofmt_ctx && !(ofmt->flags & AVFMT_NOFILE))
+    if (ofmt_ctx && ofmt && !(ofmt->flags & AVFMT_NOFILE))
         avio_closep(&ofmt_ctx->pb);
     avformat_free_context(ofmt_ctx);
-
-    av_freep(&stream_mapping);
 
     if (ret < 0 && ret != AVERROR_EOF) {
         fprintf(stderr, "Error occurred: %s\n", av_err2str(ret));
