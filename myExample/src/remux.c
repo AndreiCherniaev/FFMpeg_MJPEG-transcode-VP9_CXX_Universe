@@ -51,7 +51,6 @@ int main(int argc, char **argv)
     int ret, i;
     int stream_index = 0;
     int *stream_mapping = NULL;
-    int stream_mapping_size = 0;
 
 //    if (argc < 3) {
 //        printf("usage: %s input output\n"
@@ -100,7 +99,12 @@ int main(int argc, char **argv)
         goto end;
     }
 
-    stream_mapping_size = ifmt_ctx->nb_streams;
+    int stream_mapping_size = ifmt_ctx->nb_streams; //should be 1
+    if(stream_mapping_size!= 1){
+        fprintf(stderr, "err Too much streams in inFile\n");
+        ret = AVERROR_UNKNOWN;
+        goto end;
+    }
     stream_mapping = av_calloc(stream_mapping_size, sizeof(*stream_mapping));
     if (!stream_mapping) {
         ret = AVERROR(ENOMEM);
