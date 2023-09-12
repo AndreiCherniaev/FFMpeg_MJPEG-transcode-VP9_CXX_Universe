@@ -82,6 +82,14 @@ int main(int argc, char **argv)
 
     av_dump_format(ifmt_ctx, 0, in_filename, 0);
 
+    /* find the encoder */
+    const AVCodec *codec = avcodec_find_encoder(AV_CODEC_ID_VP9);
+    if(!(codec)) {
+        fprintf(stderr, "Could not find encoder for '%s'\n",
+                avcodec_get_name(AV_CODEC_ID_VP9));
+        exit(1);
+    }
+
     avformat_alloc_output_context2(&ofmt_ctx, NULL, NULL, out_filename);
     if (!ofmt_ctx) {
         fprintf(stderr, "Could not create output context\n");

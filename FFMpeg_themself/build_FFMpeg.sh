@@ -20,8 +20,8 @@ PATH="${MyBaseDir}/FFMpeg_themself/bin:$PATH" PKG_CONFIG_PATH="${MyBaseDir}/FFMp
   --enable-gpl \
   --enable-libopenh264 \
   --enable-libvpx \
-  #--enable-shared \
-  --enable-static \
+  --enable-shared \
+  #--enable-static \
   --disable-ffplay \
   --disable-ffprobe \
   #--disable-ffmpeg \
