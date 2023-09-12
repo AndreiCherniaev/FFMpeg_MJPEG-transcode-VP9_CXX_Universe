@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # export MyBaseDir=/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/
-#cd Cpp_FFMpeg_Universe/
 if [ -z "${MyBaseDir}" ]
 then
       echo "err \$MyBaseDir is empty"
@@ -20,16 +19,18 @@ PATH="${MyBaseDir}/FFMpeg_themself/bin:$PATH" PKG_CONFIG_PATH="${MyBaseDir}/FFMp
   --bindir="${MyBaseDir}/FFMpeg_themself/bin" \
   --enable-gpl \
   --enable-libopenh264 \
-  --enable-shared \
-  #--disable-static \
+  --enable-libvpx \
+  #--enable-shared \
+  --enable-static \
   --disable-ffplay \
   --disable-ffprobe \
-  --disable-ffmpeg \
+  #--disable-ffmpeg \
   #--disable-swresample \
-  --disable-decoders \
+  #--disable-decoders \
   --disable-doc \
-  --disable-encoders \
+  #--disable-encoders \
   --enable-encoder=libopenh264
+  --enable-encoder=libvpx-vp9
 PATH="${MyBaseDir}/FFMpeg_themself/bin:$PATH" make -j16
 make install
 fi
