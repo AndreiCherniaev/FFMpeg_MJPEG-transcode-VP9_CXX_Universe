@@ -48,22 +48,21 @@ int main(int argc, char **argv)
     const AVOutputFormat *ofmt = NULL;
     AVFormatContext *ifmt_ctx = NULL, *ofmt_ctx = NULL;
     AVPacket *pkt = NULL;
-    const char *in_filename, *out_filename;
     int ret, i;
     int stream_index = 0;
     int *stream_mapping = NULL;
     int stream_mapping_size = 0;
 
-    if (argc < 3) {
-        printf("usage: %s input output\n"
-               "API example program to remux a media file with libavformat and libavcodec.\n"
-               "The output format is guessed according to the file extension.\n"
-               "\n", argv[0]);
-        return 1;
-    }
+//    if (argc < 3) {
+//        printf("usage: %s input output\n"
+//               "API example program to remux a media file with libavformat and libavcodec.\n"
+//               "The output format is guessed according to the file extension.\n"
+//               "\n", argv[0]);
+//        return 1;
+//    }
 
-    in_filename  = argv[1];
-    out_filename = argv[2];
+    const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
+    const char * const out_filename = "vname.mov";
 
     pkt = av_packet_alloc();
     if (!pkt) {
