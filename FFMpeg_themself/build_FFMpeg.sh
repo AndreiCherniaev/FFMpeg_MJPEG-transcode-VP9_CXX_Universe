@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Based on https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
+
 # export MyBaseDir=/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/
 if [ -z "${MyBaseDir}" ]
 then
@@ -7,7 +9,6 @@ then
 else
 cd "${MyBaseDir}/FFMpeg_themself"
 rm -Rf ${MyBaseDir}/FFMpeg_themself/ffmpeg_build ${MyBaseDir}/FFMpeg_themself/bin && mkdir ${MyBaseDir}/FFMpeg_themself/ffmpeg_build ${MyBaseDir}/FFMpeg_themself/bin
-git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
 cd "${MyBaseDir}/FFMpeg_themself/ffmpeg_build"
 PATH="${MyBaseDir}/FFMpeg_themself/bin:$PATH" PKG_CONFIG_PATH="${MyBaseDir}/FFMpeg_themself/ffmpeg_build/lib/pkgconfig" ${MyBaseDir}/FFMpeg_themself/ffmpeg/configure \
   --prefix="${MyBaseDir}/FFMpeg_themself/ffmpeg_build" \
