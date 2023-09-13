@@ -11,11 +11,14 @@ git clone --recurse-submodules -j8 --remote-submodules https://github.com/Andrei
 ## Build FFMpeg
 Next step is about how [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#FFmpeg) FFMpeg
 ```bash
-#FFMpeg_MJPEG-transcode-VP9_C_Universe$ chmod +x FFMpeg_themself/build_FFMpeg.sh
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ FFMpeg_themself/build_FFMpeg.sh
 ```
-
 ## Build C++ example
+Before use example we need copy input video to build folder
+```bash
+FFMpeg_MJPEG-transcode-VP9_C_Universe$ mkdir -p myExample/build-host && cp myExample/input.yuvj422p myExample/build-host
+```
+Build and run example
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ cmake -G Ninja -DCMAKE_BUILD_TYPE:STRING=Debug -S myExample/src/ -B myExample/build-host/ --fresh
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ ninja -j16 -C myExample/build-host/
