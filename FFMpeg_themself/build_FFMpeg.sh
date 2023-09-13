@@ -15,7 +15,6 @@ PATH="../bin:$PATH" PKG_CONFIG_PATH="${PWD}/lib/pkgconfig" ../FFmpeg/configure \
   --extra-libs="-lpthread -lm" \
   --ld="g++" \
   --bindir="../bin" \
-  --enable-gpl \
   --enable-libvpx \
   --enable-shared \
   #--enable-static \
@@ -31,7 +30,7 @@ PATH="../bin:$PATH" PKG_CONFIG_PATH="${PWD}/lib/pkgconfig" ../FFmpeg/configure \
 PATH="../bin:$PATH" make -j16
 make install
 #If you plan use ffmpeg console utility then do
-export LD_LIBRARY_PATH="${PWD}/lib/"
+#export LD_LIBRARY_PATH="${PWD}/lib/"
 else
   echo "err FFMpeg_themself not exists. You should be in root of repo, do cd FFMpeg_MJPEG-transcode-VP9_CXX_Universe"
 fi
