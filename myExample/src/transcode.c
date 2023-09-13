@@ -469,9 +469,8 @@ int main(int argc, char **argv)
 //        av_log(NULL, AV_LOG_ERROR, "Usage: %s <input file> <output file>\n", argv[0]);
 //        return 1;
 //    }
-    const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/2.3D printing video_2023.08.23.yuvj422p";
-    //const char * const in_filename= "/home/a/Downloads/myGitHub/FFmpeg_fixing/Qt_libav_Universe/myExample/w.webm";
-    const char * const out_filename = "vname20000.webm";
+    const char * const in_filename= "../input.yuvj422p";
+    const char * const out_filename = "VideoOut.webm";
 
     if ((ret = open_input_file(in_filename)) < 0)
         goto end;
