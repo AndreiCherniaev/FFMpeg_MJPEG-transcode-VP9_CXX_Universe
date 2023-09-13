@@ -10,9 +10,9 @@ Tested on Ubuntu 22 x86_64.
 ```bash
 git clone --recurse-submodules -j8 --remote-submodules https://github.com/AndreiCherniaev/Qt_libav_Universe.git
 ```
-Prepare and [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#FFmpeg) FFMpeg
+Next step is about how [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#FFmpeg) FFMpeg
 ```bash
-git clone https://github.com/AndreiCherniaev/Qt_libav_Universe.git && export MyBaseDir=${PWD}/Qt_libav_Universe && cd Qt_libav_Universe
+export MyBaseDir=${PWD}/Qt_libav_Universe && cd Qt_libav_Universe
 chmod +x FFMpeg_themself/build_FFMpeg.sh
 FFMpeg_themself/build_FFMpeg.sh
 ```
