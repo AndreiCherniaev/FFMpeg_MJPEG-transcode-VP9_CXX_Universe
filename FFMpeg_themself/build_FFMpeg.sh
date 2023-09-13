@@ -15,6 +15,7 @@ PATH="../bin:$PATH" PKG_CONFIG_PATH="${PWD}/lib/pkgconfig" ../FFmpeg/configure \
   --extra-libs="-lpthread -lm" \
   --ld="g++" \
   --bindir="../bin" \
+  --disable-x86asm \
   --enable-libvpx \
   --enable-shared \
   #--enable-static \
