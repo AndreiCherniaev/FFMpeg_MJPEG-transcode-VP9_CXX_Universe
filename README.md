@@ -2,7 +2,7 @@ This is C++ project that using libavcodec, libavutil (FFMpeg), build system is c
 
 ## Prerequisites
 ```bash
-sudo apt install cmake g++ gcc
+sudo apt install cmake g++ gcc ninja-build
 sudo apt-get install libvpx-dev
 ```
 ```bash
