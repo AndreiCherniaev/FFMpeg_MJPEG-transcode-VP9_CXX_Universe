@@ -10,7 +10,7 @@ git clone --recurse-submodules -j8 --remote-submodules https://github.com/Andrei
 ## Build FFMpeg
 Next step is about how [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#FFmpeg) FFMpeg
 ```bash
-chmod +x FFMpeg_themself/build_FFMpeg.sh
+# chmod +x FFMpeg_themself/build_FFMpeg.sh
 FFMpeg_themself/build_FFMpeg.sh
 ```
 ## Synthesize MJPEG video
