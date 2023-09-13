@@ -470,7 +470,7 @@ int main(int argc, char **argv)
 //        av_log(NULL, AV_LOG_ERROR, "Usage: %s <input file> <output file>\n", argv[0]);
 //        return 1;
 //    }
-    const char * const in_filename= "../input.yuvj422p";
+    const char * const in_filename= "input.yuvj422p";
     const char * const out_filename = "VideoOut.webm";
 
     if ((ret = open_input_file(in_filename)) < 0)
