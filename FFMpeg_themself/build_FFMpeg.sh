@@ -26,7 +26,7 @@ PATH="../bin:$PATH" PKG_CONFIG_PATH="${PWD}/lib/pkgconfig" ../FFmpeg/configure \
   #--disable-decoders \
   --disable-doc \
   --disable-encoders \
-  --enable-encoder=libvpx-vp9
+  --enable-encoder=libvpx-vp9 \
   --enable-encoder=mjpeg
 PATH="../bin:$PATH" make -j16
 make install
