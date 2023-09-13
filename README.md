@@ -12,7 +12,6 @@ git clone --recurse-submodules -j8 --remote-submodules https://github.com/Andrei
 ```
 Next step is about how [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#FFmpeg) FFMpeg
 ```bash
-export MyBaseDir=${PWD}/Qt_libav_Universe && cd Qt_libav_Universe
 chmod +x FFMpeg_themself/build_FFMpeg.sh
 FFMpeg_themself/build_FFMpeg.sh
 ```

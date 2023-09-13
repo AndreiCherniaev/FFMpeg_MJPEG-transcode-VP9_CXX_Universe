@@ -4,14 +4,14 @@
 
 rm -Rf FFmpeg_build bin && mkdir FFmpeg_build bin
 cd "FFmpeg_build"
-PATH="bin:$PATH" PKG_CONFIG_PATH="FFmpeg_build/lib/pkgconfig" ../FFmpeg/configure \
+PATH="../bin:$PATH" PKG_CONFIG_PATH="FFmpeg_build/lib/pkgconfig" ../FFmpeg/configure \
   --prefix="FFmpeg_build" \
   --pkg-config-flags="--static" \
   --extra-cflags="-IFFmpeg_build/include" \
   --extra-ldflags="-LFFmpeg_build/lib" \
   --extra-libs="-lpthread -lm" \
   --ld="g++" \
-  --bindir="bin" \
+  --bindir="../bin" \
   --enable-gpl \
   --enable-libopenh264 \
   --enable-libvpx \
@@ -26,5 +26,5 @@ PATH="bin:$PATH" PKG_CONFIG_PATH="FFmpeg_build/lib/pkgconfig" ../FFmpeg/configur
   #--disable-encoders \
   --enable-encoder=libopenh264
   --enable-encoder=libvpx-vp9
-PATH="bin:$PATH" make -j16
+PATH="../bin:$PATH" make -j16
 make install
