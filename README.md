@@ -1,4 +1,10 @@
-This is C++ project that using libavcodec, libavutil (FFMpeg), build system is cmake. 
+This is C++ project that using libavcodec, libavutil (FFMpeg), build system is cmake.
+
+## Prerequisites
+```bash
+sudo apt install cmake g++
+```
+
 ## How build
 Tested on Ubuntu 22 x86_64.
 Prepare and [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#FFmpeg) FFMpeg
