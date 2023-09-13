@@ -29,4 +29,4 @@ PATH="../bin:$PATH" PKG_CONFIG_PATH="FFmpeg_build/lib/pkgconfig" ../FFmpeg/confi
   --enable-encoder=libvpx-vp9
 PATH="../bin:$PATH" make -j16
 make install
-# ldconfig -v -n /home/a/Downloads/myGitHub/FFmpeg_fixing/FFMpeg_MJPEG-transcode-VP9_CXX_Universe/FFMpeg_themself/FFmpeg_build/FFmpeg_build/lib/
+export LD_LIBRARY_PATH="/home/a/Downloads/myGitHub/FFmpeg_fixing/FFMpeg_MJPEG-transcode-VP9_CXX_Universe/FFMpeg_themself/FFmpeg_build/FFmpeg_build/lib/"
