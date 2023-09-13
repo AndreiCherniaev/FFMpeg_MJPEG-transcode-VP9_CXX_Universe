@@ -2,6 +2,7 @@
 
 #Based on https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu
 
+cd "FFMpeg_themself"
 rm -Rf FFmpeg_build bin && mkdir FFmpeg_build bin
 cd "FFmpeg_build"
 PATH="../bin:$PATH" PKG_CONFIG_PATH="FFmpeg_build/lib/pkgconfig" ../FFmpeg/configure \
@@ -15,8 +16,8 @@ PATH="../bin:$PATH" PKG_CONFIG_PATH="FFmpeg_build/lib/pkgconfig" ../FFmpeg/confi
   --enable-gpl \
   --enable-libopenh264 \
   --enable-libvpx \
-  #--enable-shared \
-  --enable-static \
+  --enable-shared \
+  #--enable-static \
   --disable-ffplay \
   --disable-ffprobe \
   #--disable-ffmpeg \
@@ -28,3 +29,4 @@ PATH="../bin:$PATH" PKG_CONFIG_PATH="FFmpeg_build/lib/pkgconfig" ../FFmpeg/confi
   --enable-encoder=libvpx-vp9
 PATH="../bin:$PATH" make -j16
 make install
+# ldconfig -v -n /home/a/Downloads/myGitHub/FFmpeg_fixing/FFMpeg_MJPEG-transcode-VP9_CXX_Universe/FFMpeg_themself/FFmpeg_build/FFmpeg_build/lib/
