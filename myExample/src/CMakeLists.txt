@@ -1,18 +1,11 @@
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.14)
 
-project(myExample LANGUAGES CXX C)
+project(myExample LANGUAGES C)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-#set(POW_LIBS "")
-#include(CheckLibraryExists)
-#check_library_exists(m pow "" LIBM)
-#if(LIBM)
-#    list(APPEND POW_LIBS "m")
-#endif()
-
-# With Environment Variables
+# With Environment Variables https://stackoverflow.com/questions/77049844/pkg-config-path-a-required-package-was-not-found
 #cmake_path(SET pkgconfig_path "${CMAKE_CURRENT_LIST_DIR}/../../FFMpeg_themself/FFmpeg_build/lib/pkgconfig/" NORMALIZE)
 #set(ENV{PKG_CONFIG_PATH} ${pkgconfig_path})
 #message("I found $ENV{PKG_CONFIG_PATH}")
@@ -33,8 +26,6 @@ pkg_check_modules(LIBAV REQUIRED IMPORTED_TARGET
 )
 
 add_executable(${PROJECT_NAME}
-    # mux.c
-    # remux.c
     transcode.c
 )
 
@@ -44,4 +35,3 @@ target_include_directories( ${PROJECT_NAME} PUBLIC
 )
 
 target_link_libraries(${PROJECT_NAME} PUBLIC PkgConfig::LIBAV)
-target_link_libraries(${PROJECT_NAME} PUBLIC ${POW_LIBS})
