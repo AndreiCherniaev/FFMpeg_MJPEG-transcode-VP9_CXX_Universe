@@ -5,7 +5,7 @@ This is C++ project that using libavcodec, libavutil (FFMpeg), build system is c
 sudo apt install cmake g++
 ```
 ```bash
-git clone --recurse-submodules -j8 --remote-submodules https://github.com/AndreiCherniaev/FFMpeg_MJPEG-transcode-VP9_CXX_Universe.git
+git clone --recurse-submodules -j8 --remote-submodules https://github.com/AndreiCherniaev/FFMpeg_MJPEG-transcode-VP9_CXX_Universe.git && cd FFMpeg_MJPEG-transcode-VP9_CXX_Universe
 ```
 ## Build FFMpeg
 Next step is about how [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#FFmpeg) FFMpeg
