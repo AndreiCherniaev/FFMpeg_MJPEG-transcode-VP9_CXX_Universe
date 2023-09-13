@@ -16,7 +16,6 @@ PATH="../bin:$PATH" PKG_CONFIG_PATH="${PWD}/lib/pkgconfig" ../FFmpeg/configure \
   --ld="g++" \
   --bindir="../bin" \
   --enable-gpl \
-  --enable-libopenh264 \
   --enable-libvpx \
   --enable-shared \
   #--enable-static \
@@ -27,8 +26,8 @@ PATH="../bin:$PATH" PKG_CONFIG_PATH="${PWD}/lib/pkgconfig" ../FFmpeg/configure \
   #--disable-decoders \
   --disable-doc \
   #--disable-encoders \
-  --enable-encoder=libopenh264
   --enable-encoder=libvpx-vp9
+  --enable-encoder=mjpeg
 PATH="../bin:$PATH" make -j16
 make install
 #If you plan use ffmpeg console utility then do
