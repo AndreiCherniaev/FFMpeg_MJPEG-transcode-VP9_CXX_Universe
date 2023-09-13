@@ -2,6 +2,7 @@
  * Copyright (c) 2010 Nicolas George
  * Copyright (c) 2011 Stefano Sabatini
  * Copyright (c) 2014 Andrey Utkin
+ * Copyright (c) 2023 Andrei Cherniaev
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +27,8 @@
  * @file demuxing, decoding, filtering, encoding and muxing API usage example
  * @example transcode.c
  *
- * Convert input to output file, applying some hard-coded filter-graph on both
- * audio and video streams.
+ * Convert input to output file, applying some hard-coded filter-graph on video stream.
+ * This code based on official example https://github.com/FFmpeg/FFmpeg/blob/master/doc/examples/transcode.c
  */
 
 #include <libavcodec/avcodec.h>
