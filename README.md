@@ -23,7 +23,7 @@ Before run example we need copy input video to build folder
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ cp myExample/input.yuvj422p myExample/build-host
 ```
-Before start we should be in folder with input.yuvj422p video file. If no then "Cannot open input file Segmentation fault (core dumped)". LD_LIBRARY_PATH should be /home/username/FFMpeg_MJPEG-transcode-VP9_C_Universe/FFMpeg_themself/FFmpeg_build/lib where "username" is current user's name. This is universal code to run example
+Before start we should be in folder with input.yuvj422p video file. If no then "Cannot open input file Segmentation fault (core dumped)". LD_LIBRARY_PATH should be `/home/username/FFMpeg_MJPEG-transcode-VP9_C_Universe/FFMpeg_themself/FFmpeg_build/lib` where "username" is current user's name. This is universal code to run example
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ cd myExample/build-host/
 FFMpeg_MJPEG-transcode-VP9_C_Universe/myExample/build-host$ LD_LIBRARY_PATH=${PWD}/../../FFMpeg_themself/FFmpeg_build/lib ./myExample
