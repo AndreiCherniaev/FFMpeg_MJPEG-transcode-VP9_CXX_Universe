@@ -55,11 +55,11 @@ FFMpeg_MJPEG-transcode-VP9_C_Universe$ export LD_LIBRARY_PATH="${PWD}/FFMpeg_the
 And try again Synthesize MJPEG video.
 
 ## In case of error 
-Check [rpath](https://habr.com/ru/articles/220961/).
+Check [dependency](https://habr.com/ru/articles/220961/).
 ```bash
 chrpath -l myExample/build-host/myExample
 ```
-This is my log:
+You do the same and compare my log with yours:
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ objdump -p myExample/build-host/myExample | grep NEEDE
   NEEDED               libavcodec.so.60
