@@ -1,8 +1,8 @@
-This is C++ project that using libavcodec, libavutil (FFMpeg), build system is cmake. Tested on Ubuntu 22 x86_64.
+This is C project that using libav (FFMpeg), build system is cmake. Tested on Ubuntu 23 server.
 
 ## Prerequisites
 ```bash
-sudo apt install cmake g++ gcc git ninja-build pkg-config
+sudo apt install cmake gcc git ninja-build pkg-config
 sudo apt-get install libvpx-dev
 ```
 ```bash
@@ -13,7 +13,7 @@ Next step is about how [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubu
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ FFMpeg_themself/build_FFMpeg.sh
 ```
-## Build C++ example
+## Build C example
 Build example
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ cmake -G Ninja -DCMAKE_BUILD_TYPE:STRING=Debug -S myExample/src/ -B myExample/build-host/ --fresh
