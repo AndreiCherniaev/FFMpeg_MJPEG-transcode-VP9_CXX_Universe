@@ -29,7 +29,7 @@ FFMpeg_MJPEG-transcode-VP9_C_Universe$ cd myExample/build-host/
 FFMpeg_MJPEG-transcode-VP9_C_Universe/myExample/build-host$ LD_LIBRARY_PATH=${PWD}/../../FFMpeg_themself/FFmpeg_build/lib ./myExample
 ```
 ## Run without LD_LIBRARY_PATH
-If you want run example without LD_LIBRARY_PATH then you should tell the system about new locations of shared libraries.
+This step is optional. If you want run example without LD_LIBRARY_PATH then you should tell the system about new locations of shared libraries.
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ sudo bash -c 'cat <<EOF > /etc/ld.so.conf.d/myFFMpeg.conf
 #My path to my FFMpeg build
