@@ -25,7 +25,8 @@ FFMpeg_MJPEG-transcode-VP9_C_Universe$ cp myExample/input.yuvj422p myExample/bui
 ```
 Run example
 ```bash
-FFMpeg_MJPEG-transcode-VP9_C_Universe$ myExample/build-host/myExample
+FFMpeg_MJPEG-transcode-VP9_C_Universe$ cd myExample/build-host/
+FFMpeg_MJPEG-transcode-VP9_C_Universe/myExample/build-host$ ./myExample
 ```
 
 In case of error check rpath
