@@ -21,7 +21,7 @@ FFMpeg_MJPEG-transcode-VP9_C_Universe$ ninja -j16 -C myExample/build-host/
 ```
 Before run example we need copy input video to build folder
 ```bash
-FFMpeg_MJPEG-transcode-VP9_C_Universe$ mkdir -p myExample/build-host && cp myExample/input.yuvj422p myExample/build-host
+FFMpeg_MJPEG-transcode-VP9_C_Universe$ cp myExample/input.yuvj422p myExample/build-host
 ```
 Run example
 ```bash
