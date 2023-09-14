@@ -182,14 +182,17 @@ static int open_output_file(const char *filename)
                 enc_ctx->pix_fmt = dec_ctx->pix_fmt;
             /* video time_base can be set to whatever is handy and supported by encoder */
             enc_ctx->time_base = av_inv_q(dec_ctx->framerate);
-            enc_ctx->bit_rate= 20000; //means 8279 b/s
+            //enc_ctx->color_primaries= AVCOL_PRI_BT709;
+            //enc_ctx->bit_rate= 2000000; //means
         }
 
         if (ofmt_ctx->oformat->flags & AVFMT_GLOBALHEADER)
             enc_ctx->flags |= AV_CODEC_FLAG_GLOBAL_HEADER;
 
+        AVDictionary* opt = NULL;
+        av_dict_set(&opt, "crf", "20", 0);
         /* Third parameter can be used to pass settings to encoder */
-        ret = avcodec_open2(enc_ctx, encoder, NULL);
+        ret = avcodec_open2(enc_ctx, encoder, &opt);
         if (ret < 0) {
             av_log(NULL, AV_LOG_ERROR, "Cannot open video encoder for stream #%u\n", 0);
             return ret;
