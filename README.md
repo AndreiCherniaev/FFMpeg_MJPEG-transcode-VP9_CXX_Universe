@@ -28,7 +28,20 @@ Before start we should be in folder with input.yuvj422p video file. If no then "
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ cd myExample/build-host/
 FFMpeg_MJPEG-transcode-VP9_C_Universe/myExample/build-host$ LD_LIBRARY_PATH=${PWD}/../../FFMpeg_themself/FFmpeg_build/lib ./myExample
 ```
-
+## Run without LD_LIBRARY_PATH
+If you want run example without LD_LIBRARY_PATH then you should tell the system about new locations of shared libraries.
+```bash
+FFMpeg_MJPEG-transcode-VP9_C_Universe$ sudo bash -c 'cat <<EOF > /etc/ld.so.conf.d/myFFMpeg.conf
+#My path to my FFMpeg build
+#see details https://github.com/AndreiCherniaev/FFMpeg_MJPEG-transcode-VP9_C_Universe
+${PWD}/FFMpeg_themself/FFmpeg_build/lib
+EOF'
+sudo ldconfig -v
+```
+Now we can run example as usual
+```bash
+./myExample
+```
 In case of error check rpath
 ```bash
 chrpath -l myExample/build-host/myExample
