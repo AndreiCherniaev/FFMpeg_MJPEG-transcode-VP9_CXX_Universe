@@ -1,4 +1,4 @@
-This is C project that using libav (FFMpeg), build system is cmake. Tested on Ubuntu 23 server.
+This is C project that using libav (FFmpeg), build system is cmake. Tested on Ubuntu 23 server.
 
 ## Prerequisites
 ```bash
@@ -8,8 +8,8 @@ sudo apt-get install libvpx-dev
 ```bash
 git clone --recurse-submodules -j8 --remote-submodules https://github.com/AndreiCherniaev/FFMpeg_MJPEG-transcode-VP9_C_Universe.git && cd FFMpeg_MJPEG-transcode-VP9_C_Universe
 ```
-## Build FFMpeg
-Next step is about how [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#FFmpeg) FFMpeg
+## Build FFmpeg
+Next step is about how [build](https://trac.ffmpeg.org/wiki/CompilationGuide/Ubuntu#FFmpeg) FFmpeg
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ FFMpeg_themself/build_FFMpeg.sh
 ```
@@ -29,7 +29,7 @@ FFMpeg_MJPEG-transcode-VP9_C_Universe$ cd myExample/build-host/
 FFMpeg_MJPEG-transcode-VP9_C_Universe/myExample/build-host$ LD_LIBRARY_PATH=${PWD}/../../FFMpeg_themself/FFmpeg_build/lib ./myExample
 ```
 ## Run without LD_LIBRARY_PATH
-This step is optional. If you want run example without LD_LIBRARY_PATH then you should tell the system about new locations of shared libraries.
+This step is optional. If you want to run example without LD_LIBRARY_PATH then you should tell to the operating system about new locations of shared libraries.
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ sudo bash -c 'cat <<EOF > /etc/ld.so.conf.d/myFFMpeg.conf
 #My path to my FFMpeg build
@@ -43,7 +43,7 @@ Now we can run example as usual
 ./myExample
 ```
 ## Synthesize MJPEG video
-input.yuvj422p video I plan use as input to test my C++ example. This step is optional, you can use myExample/input.yuvj422p This step is if you want to synthesize video again.
+input.yuvj422p video I plan use as input to test my C example. This step is optional, you can use myExample/input.yuvj422p This step is if you want to synthesize video again.
 ```bash
 FFMpeg_MJPEG-transcode-VP9_C_Universe$ FFMpeg_themself/bin/ffmpeg -y -f lavfi -i testsrc=size=1280x720:rate=1:duration=10 -vcodec mjpeg -pix_fmt yuvj422p -f mjpeg myExample/input.yuvj422p
 ```
