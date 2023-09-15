@@ -336,38 +336,31 @@ end:
 static int init_filters(void)
 {
     const char *filter_spec;
-    unsigned int i;
     int ret;
     filter_ctx = av_malloc_array(ifmt_ctx->nb_streams, sizeof(*filter_ctx));
     if (!filter_ctx)
         return AVERROR(ENOMEM);
 
-    for (i = 0; i < ifmt_ctx->nb_streams; i++) {
-        filter_ctx[i].buffersrc_ctx  = NULL;
-        filter_ctx[i].buffersink_ctx = NULL;
-        filter_ctx[i].filter_graph   = NULL;
-        if (!(ifmt_ctx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_AUDIO
-              || ifmt_ctx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO))
-            continue;
+    filter_ctx[0].buffersrc_ctx  = NULL;
+    filter_ctx[0].buffersink_ctx = NULL;
+    filter_ctx[0].filter_graph   = NULL;
 
+    if (ifmt_ctx->streams[0]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO)
+        filter_spec = "null"; /* passthrough (dummy) filter for video */
+    else
+        filter_spec = "anull"; /* passthrough (dummy) filter for audio */
+    ret = init_filter(&filter_ctx[0], stream_ctx[0].dec_ctx,
+                      stream_ctx[0].enc_ctx, filter_spec);
+    if (ret)
+        return ret;
 
-        if (ifmt_ctx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO)
-            filter_spec = "null"; /* passthrough (dummy) filter for video */
-        else
-            filter_spec = "anull"; /* passthrough (dummy) filter for audio */
-        ret = init_filter(&filter_ctx[i], stream_ctx[i].dec_ctx,
-                          stream_ctx[i].enc_ctx, filter_spec);
-        if (ret)
-            return ret;
+    filter_ctx[0].enc_pkt = av_packet_alloc();
+    if (!filter_ctx[0].enc_pkt)
+        return AVERROR(ENOMEM);
 
-        filter_ctx[i].enc_pkt = av_packet_alloc();
-        if (!filter_ctx[i].enc_pkt)
-            return AVERROR(ENOMEM);
-
-        filter_ctx[i].filtered_frame = av_frame_alloc();
-        if (!filter_ctx[i].filtered_frame)
-            return AVERROR(ENOMEM);
-    }
+    filter_ctx[0].filtered_frame = av_frame_alloc();
+    if (!filter_ctx[0].filtered_frame)
+        return AVERROR(ENOMEM);
     return 0;
 }
 
