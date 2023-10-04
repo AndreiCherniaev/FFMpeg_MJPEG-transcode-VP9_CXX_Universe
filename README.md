@@ -50,7 +50,7 @@ FFMpeg_MJPEG-transcode-VP9_C_Universe$ FFMpeg_themself/bin/ffmpeg -y -f lavfi -i
 If you get error
 "FFMpeg_themself/bin/ffmpeg: error while loading shared libraries: libavdevice.so.60: cannot open shared object file: No such file or directory" then be in root of repo and do
 ```bash
-FFMpeg_MJPEG-transcode-VP9_C_Universe$ export LD_LIBRARY_PATH="${PWD}/FFMpeg_themself/lib/"
+FFMpeg_MJPEG-transcode-VP9_C_Universe$ export LD_LIBRARY_PATH="${PWD}/FFMpeg_themself/FFmpeg_build/lib/"
 ```
 And try again Synthesize MJPEG video.
 
