@@ -364,10 +364,10 @@ static int init_filters(void)
     return 0;
 }
 
-static int encode_write_frame(unsigned int stream_index, int flush)
+static int encode_write_frame(int flush)
 {
-    StreamContext *stream = &stream_ctx[stream_index];
-    FilteringContext *filter = &filter_ctx[stream_index];
+    StreamContext *stream = &stream_ctx[0];
+    FilteringContext *filter = &filter_ctx[0];
     AVFrame *filt_frame = flush ? NULL : filter->filtered_frame;
     AVPacket *enc_pkt = filter->enc_pkt;
     int ret;
@@ -392,10 +392,10 @@ static int encode_write_frame(unsigned int stream_index, int flush)
             return 0;
 
         /* prepare packet for muxing */
-        enc_pkt->stream_index = stream_index;
+        enc_pkt->stream_index = 0;
         av_packet_rescale_ts(enc_pkt,
                              stream->enc_ctx->time_base,
-                             ofmt_ctx->streams[stream_index]->time_base);
+                             ofmt_ctx->streams[0]->time_base);
 
         av_log(NULL, AV_LOG_DEBUG, "Muxing frame\n");
         /* mux encoded frame */
@@ -436,7 +436,7 @@ static int filter_encode_write_frame(AVFrame *frame, unsigned int stream_index)
 
         filter->filtered_frame->time_base = av_buffersink_get_time_base(filter->buffersink_ctx);;
         filter->filtered_frame->pict_type = AV_PICTURE_TYPE_NONE;
-        ret = encode_write_frame(stream_index, 0);
+        ret = encode_write_frame(0);
         av_frame_unref(filter->filtered_frame);
         if (ret < 0)
             break;
@@ -445,14 +445,14 @@ static int filter_encode_write_frame(AVFrame *frame, unsigned int stream_index)
     return ret;
 }
 
-static int flush_encoder(unsigned int stream_index)
+static int flush_encoder()
 {
-    if (!(stream_ctx[stream_index].enc_ctx->codec->capabilities &
+    if (!(stream_ctx[0].enc_ctx->codec->capabilities &
           AV_CODEC_CAP_DELAY))
         return 0;
 
-    av_log(NULL, AV_LOG_INFO, "Flushing stream #%u encoder\n", stream_index);
-    return encode_write_frame(stream_index, 1);
+    av_log(NULL, AV_LOG_INFO, "Flushing stream #%u encoder\n", 0);
+    return encode_write_frame(1);
 }
 
 int main(int argc, char **argv)
@@ -557,7 +557,7 @@ int main(int argc, char **argv)
         }
 
         /* flush encoder */
-        ret = flush_encoder(0);
+        ret = flush_encoder();
         if (ret < 0) {
             av_log(NULL, AV_LOG_ERROR, "Flushing encoder failed\n");
             goto end;
